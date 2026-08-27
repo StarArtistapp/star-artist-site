@@ -1,19 +1,11 @@
-STAR ARTIST — FULL FOUNDING BETA LANDING PAGE
+STAR ARTIST FOUNDING BETA — FIXED SELF-CONTAINED BUILD
 
-Open index.html in a browser to preview the site.
+The main index.html is now self-contained:
+- all landing-page CSS is embedded directly in index.html
+- official Star Artist wordmark and star PNGs are embedded directly in index.html
+- landing-page JavaScript is embedded directly in index.html
 
-Included:
-- Full responsive public landing page
-- Star Artist wordmark and icon assets
-- iPhone hero artwork
-- Beauty editorial image
-- Email signup UI in three locations
-- Optional post-signup artist profile form
-- FAQ, beta, product areas, pain-point and positioning sections
+This avoids the resource-loading problem seen when previewing only index.html in an isolated preview pane.
 
-SIGNUP BACKEND
-The forms are currently in preview mode because no production API endpoint has been configured.
-To connect a backend, set the data-endpoint attribute on the .js-signup forms and the .profile-form.
-The signup JavaScript already sends JSON with fields intended for the Founding Beta list.
-
-The public design can be hosted as static HTML on Netlify, Vercel, Cloudflare Pages, GitHub Pages, or a standard web host.
+For GitHub Pages, upload the contents of this folder to the repository root. Keep CNAME at the root.
+The additional styles.css and assets/ files remain for the Privacy / Terms / Contact pages and as source files, but the landing page no longer depends on them for its styling or branding imagery.
