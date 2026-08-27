@@ -21,7 +21,7 @@
       --blush-2: #f4e5e0;
       --line: rgba(8,9,10,.09);
       --serif: "Libre Caslon Display", Georgia, "Times New Roman", serif;
-      --sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --sans: Futura, "Futura PT", "Avenir Next", "Jost", "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -88,57 +88,52 @@
 
     /* HERO */
     .hero {
-      min-height: clamp(650px, 50vw, 820px);
-      display: grid;
-      grid-template-columns: 56% 44%;
-      background: #fdfaf7;
+      min-height: clamp(680px, 54vw, 860px);
       position: relative;
-      border-bottom: 1px solid rgba(255,255,255,.85);
+      background:
+        radial-gradient(55% 80% at 78% 68%, rgba(239,200,190,.42), transparent 62%),
+        radial-gradient(46% 56% at 92% 28%, rgba(248,231,224,.78), transparent 68%),
+        linear-gradient(135deg, #fdfaf7 0%, #fbf6f2 55%, #f7ede8 100%);
+      border-bottom: 1px solid rgba(8,9,10,.06);
+      overflow: hidden;
+    }
+    .hero-inner {
+      width: min(100%, 1480px);
+      margin: 0 auto;
+      min-height: inherit;
+      position: relative;
+      display: grid;
+      grid-template-columns: 52% 48%;
+      align-items: center;
     }
     .hero-left {
       position: relative;
-      z-index: 2;
-      padding: clamp(82px, 8.5vw, 138px) 42px 72px clamp(58px, 6.1vw, 88px);
-      background:
-        radial-gradient(95% 85% at 92% 75%, rgba(245,219,211,.46), transparent 58%),
-        linear-gradient(180deg, #fdfaf7 0%, #fcf8f4 100%);
-      overflow: hidden;
+      z-index: 3;
+      padding: clamp(70px, 7vw, 110px) 34px 72px clamp(58px, 6.1vw, 88px);
     }
-    .hero-left::after {
-      content: "★";
-      position: absolute;
-      left: -8%;
-      bottom: -34%;
-      font-size: min(46vw, 700px);
-      line-height: .8;
-      color: rgba(211,172,162,.075);
-      transform: rotate(-7deg);
-      z-index: -1;
-      pointer-events: none;
-    }
-    .hero-copy { max-width: 575px; }
+    .hero-copy { max-width: 610px; }
     .hero h1 {
       margin: 0;
       font-family: var(--serif);
-      font-size: clamp(58px, 5.2vw, 82px);
+      font-size: clamp(58px, 5.25vw, 84px);
       font-weight: 400;
-      line-height: 1.05;
+      line-height: 1.03;
       letter-spacing: -.045em;
     }
     .hero h1 em { font-style: italic; font-weight: 400; }
     .hero-desc {
       margin: 30px 0 0;
-      width: min(100%, 420px);
+      width: min(100%, 440px);
       color: #595553;
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.7;
     }
     .signup-form {
       margin-top: 29px;
-      width: min(100%, 430px);
+      width: min(100%, 450px);
       height: 50px;
       display: flex;
-      background: rgba(255,255,255,.88);
+      background: rgba(255,255,255,.9);
       border: 1px solid rgba(8,9,10,.16);
     }
     .signup-form input {
@@ -185,8 +180,92 @@
       cursor: pointer;
     }
     .profile-link.show { display: inline-block; }
-    .hero-visual { position: relative; overflow: hidden; background: #f9f3ef; }
-    .hero-visual img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+
+    /* Cinematic phone: transparent photoreal cutout + exact brand mark layered in HTML */
+    .hero-visual {
+      position: relative;
+      align-self: stretch;
+      min-height: inherit;
+      z-index: 2;
+      overflow: visible;
+    }
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 92%;
+      aspect-ratio: 1.15;
+      right: -8%;
+      top: 8%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 40% 42%, rgba(255,244,238,.96) 0 24%, rgba(246,220,213,.62) 42%, rgba(232,190,182,.26) 59%, transparent 73%);
+      filter: blur(8px);
+      opacity: .92;
+      pointer-events: none;
+    }
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      width: 72%;
+      height: 32%;
+      right: 1%;
+      bottom: 3%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(186,129,118,.22), rgba(231,194,187,.11) 48%, transparent 73%);
+      filter: blur(24px);
+      pointer-events: none;
+    }
+    .phone-halo {
+      position: absolute;
+      width: 78%;
+      aspect-ratio: 1;
+      right: 1%;
+      top: 16%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,211,203,.38), rgba(251,239,233,.18) 48%, transparent 72%);
+      filter: blur(3px);
+      pointer-events: none;
+    }
+    .phone-photo-wrap {
+      position: absolute;
+      height: min(91%, 790px);
+      aspect-ratio: 590 / 850;
+      right: clamp(10px, 2.4vw, 38px);
+      top: 51%;
+      transform: translateY(-50%);
+      transform-origin: center center;
+      filter: drop-shadow(0 34px 34px rgba(80,57,51,.19));
+      z-index: 2;
+    }
+    .phone-photo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+    .phone-app-icon {
+      position: absolute;
+      left: 29.7%;
+      top: 12.1%;
+      width: 16.8%;
+      aspect-ratio: 1;
+      border-radius: 24%;
+      background: rgba(255,255,255,.995);
+      display: grid;
+      place-items: center;
+      transform: rotate(2.7deg) skewY(.8deg);
+      transform-origin: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,.045);
+      overflow: hidden;
+    }
+    .phone-app-icon img {
+      width: 74%;
+      height: 74%;
+      object-fit: contain;
+      display: block;
+    }
 
     /* OPENING STATEMENT */
     .statement {
@@ -595,17 +674,18 @@
       .nav { padding-top: 0; gap: 0; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; }
       .nav a:not(:last-child) { display: none; }
 
-      .hero { display: block; min-height: 0; }
-      .hero-left { padding: 64px 24px 34px; min-height: 600px; }
-      .hero-left::after { left: 28%; bottom: 26%; font-size: 90vw; color: rgba(211,172,162,.05); }
+      .hero { min-height: 980px; }
+      .hero-inner { display: block; min-height: inherit; }
+      .hero-left { padding: 58px 24px 34px; min-height: 560px; }
       .hero h1 { font-size: clamp(54px, 14.2vw, 72px); line-height: .98; }
       .hero-desc { margin-top: 27px; font-size: 14px; line-height: 1.68; max-width: 96%; }
       .signup-form { width: 100%; height: auto; display: grid; gap: 10px; border: 0; background: transparent; }
       .signup-form input { height: 50px; border: 1px solid rgba(8,9,10,.16); background: rgba(255,255,255,.84); }
       .signup-form button { width: 100%; height: 56px; font-size: 12px; }
       .beta-note { margin-top: 20px; }
-      .hero-visual { height: 500px; margin-top: -1px; }
-      .hero-visual img { object-position: left top; }
+      .hero-visual { min-height: 500px; height: 500px; margin-top: -18px; }
+      .phone-photo-wrap { height: 500px; right: 50%; top: 48%; transform: translate(50%, -50%); }
+      .phone-halo { width: 108%; right: -26%; top: -3%; }
 
       .statement { min-height: 275px; padding: 55px 24px; }
       .statement h2 { font-size: clamp(48px, 13vw, 62px); }
@@ -687,26 +767,33 @@
 
     <main>
       <section class="hero" id="top">
-        <div class="hero-left">
-          <div class="hero-copy">
-            <h1>Passion first.<br><em>Focus today.</em><br>Business handled.</h1>
-            <p class="hero-desc">Star Artist is the all-in-one home for freelance makeup artists and hairstylists.<br>More time creating. Less time managing.</p>
+        <div class="hero-inner">
+          <div class="hero-left">
+            <div class="hero-copy">
+              <h1>Passion first.<br><em>Focus today.</em><br>Business handled.</h1>
+              <p class="hero-desc">Star Artist is the all-in-one home for freelance makeup artists and hairstylists.<br>More time creating. Less time managing.</p>
 
-            <form class="signup-form js-signup" data-endpoint="https://upbeat-star-artist-os.base44.app/functions/submitBetaSignup" novalidate>
-              <input type="email" name="email" autocomplete="email" placeholder="Enter your email" aria-label="Email address" required>
-              <button type="submit">Request Access&nbsp; ★</button>
-            </form>
-            <div class="form-message" role="status" aria-live="polite"></div>
-            <button class="profile-link js-profile-link" type="button">Tell us a little about your business →</button>
+              <form class="signup-form js-signup" data-endpoint="https://upbeat-star-artist-os.base44.app/functions/submitBetaSignup" novalidate>
+                <input type="email" name="email" autocomplete="email" placeholder="Enter your email" aria-label="Email address" required>
+                <button type="submit">Request Access&nbsp; ★</button>
+              </form>
+              <div class="form-message" role="status" aria-live="polite"></div>
+              <button class="profile-link js-profile-link" type="button">Tell us a little about your business →</button>
 
-            <div class="beta-note">
-              <strong>Founding Beta · 50 Spots</strong>
-              <span>Limited first testing cohort.</span>
+              <div class="beta-note">
+                <strong>Founding Beta · 50 Spots</strong>
+                <span>Limited first testing cohort.</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="hero-visual" aria-hidden="true">
-          <img src="assets/phone-hero.jpg" alt="">
+
+          <div class="hero-visual" aria-label="Star Artist on iPhone">
+            <div class="phone-halo" aria-hidden="true"></div>
+            <div class="phone-photo-wrap">
+              <img class="phone-photo" src="assets/phone-cutout.png" alt="iPhone displaying Star Artist">
+              <div class="phone-app-icon" aria-hidden="true"><img src="assets/star-icon.png" alt=""></div>
+            </div>
+          </div>
         </div>
       </section>
 
