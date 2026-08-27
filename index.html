@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fbf8f5" />
+  <title>Star Artist — Founding Beta</title>
+  <meta name="description" content="Star Artist is the all-in-one home for freelance makeup artists and hairstylists. Join the Founding Beta." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #08090a;
+      --muted: #65615f;
+      --soft: #8a8581;
+      --paper: #fbf8f5;
+      --paper-2: #fffdfb;
+      --paper-3: #f7f0ec;
+      --blush: #edd8d2;
+      --blush-2: #f4e5e0;
+      --line: rgba(8,9,10,.09);
+      --serif: "Libre Caslon Display", Georgia, "Times New Roman", serif;
+      --sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    body.modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; }
+    button, input, select, textarea { font: inherit; }
+    button { color: inherit; }
+    .page { width: 100%; overflow: hidden; }
+    .shell { width: min(100%, 1480px); margin: 0 auto; }
+    .eyebrow {
+      margin: 0;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #6f6965;
+      font-weight: 500;
+    }
+    .serif { font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; }
+
+    /* HEADER */
+    .header {
+      height: clamp(108px, 9.2vw, 142px);
+      padding: 22px clamp(34px, 5.7vw, 82px) 18px;
+      display: grid;
+      grid-template-columns: 1.35fr .45fr .8fr;
+      align-items: start;
+      gap: 24px;
+      background: #fdfaf7;
+      position: relative;
+      z-index: 5;
+    }
+    .brand { width: clamp(295px, 30vw, 500px); max-width: 100%; }
+    .private-beta {
+      justify-self: center;
+      padding-top: 12px;
+      font-size: 10px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #625e5b;
+      white-space: nowrap;
+    }
+    .nav {
+      justify-self: end;
+      display: flex;
+      gap: clamp(24px, 3vw, 48px);
+      padding-top: 12px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #625e5b;
+      white-space: nowrap;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: clamp(650px, 50vw, 820px);
+      display: grid;
+      grid-template-columns: 56% 44%;
+      background: #fdfaf7;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,.85);
+    }
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      padding: clamp(82px, 8.5vw, 138px) 42px 72px clamp(58px, 6.1vw, 88px);
+      background:
+        radial-gradient(95% 85% at 92% 75%, rgba(245,219,211,.46), transparent 58%),
+        linear-gradient(180deg, #fdfaf7 0%, #fcf8f4 100%);
+      overflow: hidden;
+    }
+    .hero-left::after {
+      content: "★";
+      position: absolute;
+      left: -8%;
+      bottom: -34%;
+      font-size: min(46vw, 700px);
+      line-height: .8;
+      color: rgba(211,172,162,.075);
+      transform: rotate(-7deg);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero-copy { max-width: 575px; }
+    .hero h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(58px, 5.2vw, 82px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+    .hero h1 em { font-style: italic; font-weight: 400; }
+    .hero-desc {
+      margin: 30px 0 0;
+      width: min(100%, 420px);
+      color: #595553;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .signup-form {
+      margin-top: 29px;
+      width: min(100%, 430px);
+      height: 50px;
+      display: flex;
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(8,9,10,.16);
+    }
+    .signup-form input {
+      min-width: 0;
+      flex: 1;
+      border: 0;
+      background: transparent;
+      padding: 0 17px;
+      outline: 0;
+      color: var(--ink);
+      font-size: 12px;
+    }
+    .signup-form input::placeholder { color: #a4a09d; }
+    .signup-form button {
+      width: 170px;
+      border: 0;
+      background: var(--ink);
+      color: #fff;
+      cursor: pointer;
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .signup-form button:disabled { opacity: .7; cursor: wait; }
+    .beta-note { margin-top: 27px; display: grid; gap: 7px; }
+    .beta-note strong {
+      font-size: 11px;
+      letter-spacing: .22em;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .beta-note span { color: #68635f; font-size: 11px; }
+    .form-message { display:none; margin-top:12px; font-size:12px; color:#5b5653; }
+    .form-message.show { display:block; }
+    .profile-link {
+      display: none;
+      margin-top: 12px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-size: 11px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+    .profile-link.show { display: inline-block; }
+    .hero-visual { position: relative; overflow: hidden; background: #f9f3ef; }
+    .hero-visual img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+
+    /* OPENING STATEMENT */
+    .statement {
+      min-height: clamp(230px, 18.5vw, 300px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 44px 24px;
+      background:
+        radial-gradient(70% 120% at 50% 120%, rgba(245,222,215,.22), transparent 65%),
+        var(--paper-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .statement h2,
+    .audience h2,
+    .final h2,
+    .beta-section h2,
+    .positioning h2,
+    .pain-title,
+    .product-intro h2,
+    .faq-header h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 400;
+      letter-spacing: -.04em;
+    }
+    .statement h2 { font-size: clamp(48px, 4.3vw, 68px); line-height: .98; }
+    .statement p {
+      margin: 22px auto 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #6f6a66;
+    }
+
+    /* ARTIST BAND */
+    .audience {
+      min-height: clamp(270px, 20vw, 330px);
+      display: grid;
+      grid-template-columns: 58% 42%;
+      background: #f8f4ef;
+      border-bottom: 1px solid var(--line);
+    }
+    .audience-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px clamp(48px, 6.1vw, 88px);
+    }
+    .label {
+      margin-bottom: 18px;
+      color: #6f6a66;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .audience h2 { font-size: clamp(44px, 4vw, 63px); line-height: .98; max-width: 650px; }
+    .audience p {
+      margin: 22px 0 0;
+      max-width: 650px;
+      color: #67625f;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .audience-photo { min-height: 270px; overflow: hidden; }
+    .audience-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    /* PAIN — typography instead of icon cards */
+    .pain {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      min-height: 650px;
+      background: var(--paper-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .pain-copy {
+      padding: clamp(78px, 8vw, 130px) clamp(42px, 7vw, 105px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+    }
+    .pain-title { font-size: clamp(58px, 5.4vw, 86px); line-height: .98; max-width: 710px; }
+    .pain-copy p {
+      margin: 28px 0 0;
+      max-width: 590px;
+      color: #66615e;
+      font-size: 14px;
+      line-height: 1.72;
+    }
+    .pain-list {
+      padding: clamp(54px, 6.5vw, 100px) clamp(36px, 5.5vw, 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(180deg, #fbf7f3, #f7f0eb);
+    }
+    .pain-row {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 20px;
+      align-items: baseline;
+      padding: 19px 0;
+      border-bottom: 1px solid rgba(8,9,10,.11);
+    }
+    .pain-row:first-child { border-top: 1px solid rgba(8,9,10,.11); }
+    .pain-row span:first-child { color: #a98e86; font-size: 10px; letter-spacing: .15em; }
+    .pain-row strong { font-family: var(--serif); font-size: clamp(25px, 2.2vw, 36px); font-weight: 400; letter-spacing: -.025em; }
+    .pain-foot { margin: 30px 0 0; font-family: var(--serif); font-size: 27px; line-height: 1.18; max-width: 460px; }
+
+    /* SESSION FLOW */
+    .flow {
+      padding: clamp(78px, 8.5vw, 130px) clamp(36px, 6vw, 90px);
+      background: #f9f5f1;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    .flow .eyebrow { margin-bottom: 26px; }
+    .flow h2 {
+      margin: 0 auto;
+      max-width: 900px;
+      font-family: var(--serif);
+      font-size: clamp(52px, 5.2vw, 82px);
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: -.04em;
+    }
+    .flow-copy { margin: 26px auto 0; max-width: 620px; color: #6b6662; font-size: 13px; line-height: 1.7; }
+    .flow-line {
+      margin: clamp(58px, 7vw, 96px) auto 0;
+      width: min(100%, 1280px);
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      align-items: center;
+      border-top: 1px solid rgba(8,9,10,.17);
+      border-bottom: 1px solid rgba(8,9,10,.17);
+    }
+    .flow-step {
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 10px;
+      position: relative;
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #373432;
+    }
+    .flow-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 32%;
+      height: 36%;
+      width: 1px;
+      background: rgba(8,9,10,.12);
+    }
+
+    /* PRODUCT AREAS */
+    .products { background: var(--paper-2); border-bottom: 1px solid var(--line); }
+    .product-intro {
+      padding: clamp(82px, 8vw, 124px) clamp(42px, 6vw, 90px) clamp(54px, 5vw, 78px);
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 70px;
+      align-items: end;
+    }
+    .product-intro h2 { font-size: clamp(52px, 5.2vw, 82px); line-height: .98; max-width: 820px; }
+    .product-intro p { margin: 0; max-width: 520px; color: #6a6562; font-size: 13px; line-height: 1.72; }
+    .product-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+    .product-card {
+      min-height: 430px;
+      padding: clamp(50px, 5.5vw, 84px) clamp(40px, 5vw, 76px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .product-card:nth-child(odd) { border-right: 1px solid var(--line); }
+    .product-card:nth-child(2), .product-card:nth-child(3) { background: #faf5f1; }
+    .product-index { font-size: 10px; letter-spacing: .19em; color: #9a8179; }
+    .product-card h3 {
+      margin: 48px 0 0;
+      font-family: var(--serif);
+      font-size: clamp(50px, 4.3vw, 70px);
+      font-weight: 400;
+      letter-spacing: -.04em;
+      line-height: .96;
+    }
+    .product-card p { margin: 34px 0 0; max-width: 500px; color: #645f5c; font-size: 13px; line-height: 1.72; }
+    .product-card .micro {
+      margin-top: 48px;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #817b77;
+      line-height: 1.8;
+      max-width: 540px;
+    }
+    .product-card::after {
+      content: "★";
+      position: absolute;
+      right: -58px;
+      bottom: -105px;
+      font-size: 290px;
+      color: rgba(203,166,156,.055);
+      pointer-events: none;
+    }
+
+    /* POSITIONING */
+    .positioning {
+      background: #090a0b;
+      color: #fdf9f5;
+      padding: clamp(88px, 9vw, 140px) clamp(42px, 7vw, 110px);
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 70px;
+      align-items: start;
+    }
+    .positioning .eyebrow { color: #b7aaa5; }
+    .positioning h2 { font-size: clamp(56px, 5.8vw, 92px); line-height: .98; max-width: 940px; }
+    .positioning h2 span { color: #a9948c; }
+    .positioning p { margin: 30px 0 0; color: #bcb5b1; font-size: 13px; line-height: 1.75; max-width: 620px; }
+
+    /* BETA */
+    .beta-section {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      min-height: 610px;
+      background:
+        radial-gradient(75% 110% at 7% 92%, rgba(232,199,190,.42), transparent 64%),
+        #fbf7f3;
+      border-bottom: 1px solid var(--line);
+    }
+    .beta-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+      font-family: var(--serif);
+      font-size: clamp(170px, 23vw, 360px);
+      line-height: .8;
+      letter-spacing: -.08em;
+      color: #0b0c0d;
+      position: relative;
+      padding-bottom: 30px;
+    }
+    .beta-number small {
+      position: absolute;
+      left: 50%;
+      bottom: 70px;
+      transform: translateX(-50%);
+      font-family: var(--sans);
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: #706965;
+      white-space: nowrap;
+    }
+    .beta-content { padding: clamp(76px, 7.5vw, 118px) clamp(44px, 7vw, 108px); display: flex; flex-direction: column; justify-content: center; }
+    .beta-section h2 { font-size: clamp(52px, 5vw, 78px); line-height: .98; max-width: 830px; }
+    .beta-section .lead { margin: 30px 0 0; color: #655f5c; font-size: 14px; line-height: 1.75; max-width: 650px; }
+    .beta-benefits {
+      margin: 42px 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 720px;
+      border-top: 1px solid rgba(8,9,10,.12);
+    }
+    .beta-benefit { padding: 18px 24px 18px 0; border-bottom: 1px solid rgba(8,9,10,.12); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .beta-benefit:nth-child(odd) { border-right: 1px solid rgba(8,9,10,.12); }
+    .beta-benefit:nth-child(even) { padding-left: 24px; }
+    .beta-section .signup-form { margin-top: 38px; }
+
+    /* FAQ */
+    .faq {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 80px;
+      padding: clamp(80px, 8vw, 128px) clamp(42px, 7vw, 110px);
+      background: var(--paper-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .faq-header h2 { font-size: clamp(52px, 5vw, 78px); line-height: .98; margin-top: 22px; }
+    .faq-header p { margin: 26px 0 0; max-width: 420px; color: #6d6865; font-size: 13px; line-height: 1.7; }
+    .faq-list { border-top: 1px solid rgba(8,9,10,.16); }
+    .faq-list details { border-bottom: 1px solid rgba(8,9,10,.16); }
+    .faq-list summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 25px 42px 25px 0;
+      position: relative;
+      font-family: var(--serif);
+      font-size: clamp(24px, 2.3vw, 35px);
+      letter-spacing: -.025em;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: "+"; position: absolute; right: 2px; top: 24px; font-family: var(--sans); font-size: 20px; font-weight: 400; }
+    .faq-list details[open] summary::after { content: "–"; }
+    .faq-answer { padding: 0 56px 26px 0; color: #696461; font-size: 13px; line-height: 1.72; max-width: 720px; }
+
+    /* FINAL CTA */
+    .final {
+      min-height: clamp(280px, 23vw, 360px);
+      padding: 48px 24px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(72% 160% at 50% 120%, rgba(246,222,215,.34), transparent 64%),
+        #fcf9f6;
+    }
+    .final-inner { width: min(100%, 820px); }
+    .final .label { margin-bottom: 17px; }
+    .final h2 { font-size: clamp(48px, 4.5vw, 70px); line-height: 1; }
+    .final .tagline { margin: 17px auto 0; font-family: var(--serif); font-style: italic; font-size: clamp(20px, 2vw, 29px); color: #756d69; }
+    .final .signup-form { margin: 25px auto 0; width: min(100%, 470px); height: 45px; }
+    .final .signup-form button { width: 158px; }
+    .final-note { margin-top: 13px; color: #77716d; font-size: 10px; }
+
+    .footer {
+      min-height: 90px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 30px;
+      padding: 20px clamp(28px, 5vw, 75px);
+      border-top: 1px solid rgba(8,9,10,.05);
+      background: #fcf9f6;
+      color: #7d7773;
+      font-size: 9px;
+      letter-spacing: .04em;
+    }
+    .footer-brand { width: 120px; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-copy { justify-self: end; }
+
+    /* OPTIONAL PROFILE MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(8,9,10,.42);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .modal.show { display: flex; }
+    .modal-card {
+      width: min(100%, 760px);
+      max-height: min(90vh, 880px);
+      overflow-y: auto;
+      background: #fffdfa;
+      padding: clamp(34px, 5vw, 62px);
+      position: relative;
+      box-shadow: 0 28px 90px rgba(0,0,0,.16);
+    }
+    .modal-close { position: absolute; top: 20px; right: 22px; border: 0; background: none; cursor: pointer; font-size: 27px; line-height: 1; }
+    .modal-card h2 { margin: 18px 0 0; font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; font-size: clamp(44px, 5vw, 66px); line-height: .96; }
+    .modal-card > p { margin: 22px 0 0; color: #6b6561; font-size: 13px; line-height: 1.7; max-width: 590px; }
+    .profile-form { margin-top: 34px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: grid; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: #736c68; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 1px solid rgba(8,9,10,.16);
+      background: #fff;
+      padding: 13px 14px;
+      color: var(--ink);
+      outline: 0;
+      border-radius: 0;
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .profile-submit { grid-column: 1 / -1; height: 52px; background: var(--ink); color: #fff; border: 0; cursor: pointer; text-transform: uppercase; font-size: 10px; letter-spacing: .08em; }
+    .profile-message { grid-column: 1 / -1; color: #625d59; font-size: 12px; display: none; }
+    .profile-message.show { display: block; }
+
+    @media (max-width: 980px) {
+      .pain, .beta-section, .faq, .positioning { grid-template-columns: 1fr; }
+      .pain-copy { border-right: 0; border-bottom: 1px solid var(--line); }
+      .product-intro { grid-template-columns: 1fr; gap: 28px; }
+      .beta-number { min-height: 350px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .positioning { gap: 30px; }
+      .faq { gap: 50px; }
+    }
+
+    @media (max-width: 860px) {
+      .header {
+        height: 94px;
+        padding: 20px 22px 16px;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+      .brand { width: 190px; }
+      .private-beta { display: none; }
+      .nav { padding-top: 0; gap: 0; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+      .nav a:not(:last-child) { display: none; }
+
+      .hero { display: block; min-height: 0; }
+      .hero-left { padding: 64px 24px 34px; min-height: 600px; }
+      .hero-left::after { left: 28%; bottom: 26%; font-size: 90vw; color: rgba(211,172,162,.05); }
+      .hero h1 { font-size: clamp(54px, 14.2vw, 72px); line-height: .98; }
+      .hero-desc { margin-top: 27px; font-size: 14px; line-height: 1.68; max-width: 96%; }
+      .signup-form { width: 100%; height: auto; display: grid; gap: 10px; border: 0; background: transparent; }
+      .signup-form input { height: 50px; border: 1px solid rgba(8,9,10,.16); background: rgba(255,255,255,.84); }
+      .signup-form button { width: 100%; height: 56px; font-size: 12px; }
+      .beta-note { margin-top: 20px; }
+      .hero-visual { height: 500px; margin-top: -1px; }
+      .hero-visual img { object-position: left top; }
+
+      .statement { min-height: 275px; padding: 55px 24px; }
+      .statement h2 { font-size: clamp(48px, 13vw, 62px); }
+      .statement p { font-size: 12px; }
+
+      .audience { display: block; }
+      .audience-copy { padding: 64px 24px 58px; }
+      .audience h2 { font-size: clamp(44px, 11.8vw, 58px); }
+      .audience p { font-size: 13px; }
+      .audience-photo { height: 300px; }
+
+      .pain { min-height: 0; }
+      .pain-copy, .pain-list { padding: 68px 24px; }
+      .pain-title { font-size: clamp(52px, 13vw, 68px); }
+      .pain-copy p { font-size: 13px; }
+      .pain-row { grid-template-columns: 28px 1fr; gap: 14px; padding: 17px 0; }
+      .pain-row strong { font-size: 29px; }
+      .pain-foot { font-size: 25px; }
+
+      .flow { padding: 72px 24px; text-align: left; }
+      .flow h2 { font-size: clamp(51px, 13vw, 67px); }
+      .flow-copy { margin-left: 0; }
+      .flow-line { margin-top: 48px; grid-template-columns: 1fr 1fr; border-bottom: 0; }
+      .flow-step { min-height: 72px; justify-content: flex-start; padding: 17px 12px 17px 0; border-bottom: 1px solid rgba(8,9,10,.13); }
+      .flow-step:nth-child(odd) { border-right: 1px solid rgba(8,9,10,.13); }
+      .flow-step:nth-child(even) { padding-left: 18px; }
+      .flow-step::after { display: none; }
+
+      .product-intro { padding: 70px 24px 46px; }
+      .product-intro h2 { font-size: clamp(51px, 13vw, 68px); }
+      .product-grid { grid-template-columns: 1fr; }
+      .product-card { min-height: 360px; padding: 54px 24px; border-right: 0 !important; }
+      .product-card h3 { font-size: clamp(52px, 13vw, 67px); margin-top: 36px; }
+      .product-card p { font-size: 13px; }
+      .product-card:nth-child(2), .product-card:nth-child(3) { background: #faf5f1; }
+
+      .positioning { padding: 76px 24px; }
+      .positioning h2 { font-size: clamp(52px, 13vw, 69px); }
+
+      .beta-number { min-height: 300px; font-size: 64vw; }
+      .beta-number small { bottom: 48px; }
+      .beta-content { padding: 68px 24px; }
+      .beta-section h2 { font-size: clamp(50px, 13vw, 67px); }
+      .beta-section .lead { font-size: 13px; }
+      .beta-benefits { grid-template-columns: 1fr; }
+      .beta-benefit, .beta-benefit:nth-child(even) { padding: 17px 0; border-right: 0; }
+
+      .faq { padding: 72px 24px; gap: 44px; }
+      .faq-header h2 { font-size: clamp(50px, 13vw, 67px); }
+      .faq-list summary { padding: 22px 40px 22px 0; font-size: 28px; line-height: 1.05; }
+      .faq-answer { padding-right: 20px; }
+
+      .final { min-height: 360px; padding: 64px 24px 68px; }
+      .final h2 { font-size: clamp(46px, 12vw, 60px); }
+      .final .signup-form { width: 100%; height: auto; }
+      .final .signup-form button { width: 100%; }
+
+      .footer { min-height: 130px; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 18px; }
+      .footer-copy { justify-self: center; }
+      .footer-links { gap: 22px; }
+
+      .profile-form { grid-template-columns: 1fr; }
+      .field.full, .profile-submit, .profile-message { grid-column: auto; }
+      .modal-card { padding: 44px 22px 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a href="#top" aria-label="Star Artist home"><img class="brand" src="assets/star-artist-wordmark.png" alt="Star Artist"></a>
+      <div class="private-beta">Private Beta</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#products">For Artists</a>
+        <a href="#join">Join Beta</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-left">
+          <div class="hero-copy">
+            <h1>Passion first.<br>Business handled.<br><em>Focus today.</em></h1>
+            <p class="hero-desc">Star Artist is the all-in-one home for freelance makeup artists and hairstylists.<br>More time creating. Less time managing.</p>
+
+            <form class="signup-form js-signup" data-endpoint="" novalidate>
+              <input type="email" name="email" autocomplete="email" placeholder="Enter your email" aria-label="Email address" required>
+              <button type="submit">Request Access&nbsp; ★</button>
+            </form>
+            <div class="form-message" role="status" aria-live="polite"></div>
+            <button class="profile-link js-profile-link" type="button">Tell us a little about your business →</button>
+
+            <div class="beta-note">
+              <strong>Founding Beta · 50 Spots</strong>
+              <span>Limited first testing cohort.</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <img src="assets/phone-hero.jpg" alt="">
+        </div>
+      </section>
+
+      <section class="statement" id="about">
+        <div>
+          <h2>One session.<br>Everything connected.</h2>
+          <p>Clients, bookings, payments, contracts, and more.<br>All in one beautifully simple space.</p>
+        </div>
+      </section>
+
+      <section class="audience" id="artists">
+        <div class="audience-copy">
+          <div class="label">Built for</div>
+          <h2>Freelance makeup artists<br>and hairstylists.</h2>
+          <p>Designed around the way you actually work—on set, on location,<br>and everywhere your artistry takes you.</p>
+        </div>
+        <div class="audience-photo" aria-hidden="true">
+          <img src="assets/beauty-editorial.jpg" alt="">
+        </div>
+      </section>
+
+      <section class="pain">
+        <div class="pain-copy">
+          <p class="eyebrow">The problem</p>
+          <h2 class="pain-title">The work isn’t the problem.<br>Everything around the work is.</h2>
+          <p>Artists are forced to stitch together generic tools that were never designed around a real working session. Scheduling, contracts, deposits, client messages, mileage, assistants, expenses, and balances all end up living in different places.</p>
+        </div>
+        <div class="pain-list" aria-label="Common business pain points">
+          <div class="pain-row"><span>01</span><strong>Scheduling lives here.</strong></div>
+          <div class="pain-row"><span>02</span><strong>Contracts live there.</strong></div>
+          <div class="pain-row"><span>03</span><strong>Clients message everywhere.</strong></div>
+          <div class="pain-row"><span>04</span><strong>Expenses get forgotten.</strong></div>
+          <div class="pain-row"><span>05</span><strong>Balances need tracking.</strong></div>
+          <div class="pain-row"><span>06</span><strong>Teams get coordinated separately.</strong></div>
+          <p class="pain-foot">Star Artist is designed around the actual working day of an artist instead.</p>
+        </div>
+      </section>
+
+      <section class="flow">
+        <p class="eyebrow">Built around the job</p>
+        <h2>A Session isn’t just a calendar event.</h2>
+        <p class="flow-copy">It becomes the home for everything connected to the work—so information follows the session instead of living in separate systems.</p>
+        <div class="flow-line" aria-label="Session workflow">
+          <div class="flow-step">Client</div>
+          <div class="flow-step">Schedule</div>
+          <div class="flow-step">Contract</div>
+          <div class="flow-step">Deposit</div>
+          <div class="flow-step">Team</div>
+          <div class="flow-step">Travel</div>
+          <div class="flow-step">Expenses</div>
+          <div class="flow-step">Payment</div>
+        </div>
+      </section>
+
+      <section class="products" id="products">
+        <div class="product-intro">
+          <div>
+            <p class="eyebrow">Inside Star Artist</p>
+            <h2>Everything you need.<br>Built for the way you work.</h2>
+          </div>
+          <p>Four connected spaces keep the creative day clear while the business side stays organized behind it. Nothing is added just to make the app feel bigger; each area exists because artists actually need it.</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <span class="product-index">01 / Today</span>
+            <div>
+              <h3>Today</h3>
+              <p>Your daily command center. See where you need to be, who you’re working with, what is coming next, and what needs your attention without digging through the rest of the business.</p>
+            </div>
+            <div class="micro">Schedule · attention items · location · clients · what’s next</div>
+          </article>
+
+          <article class="product-card">
+            <span class="product-index">02 / Sessions</span>
+            <div>
+              <h3>Sessions</h3>
+              <p>The complete home for each job—client details, schedules, notes, inspiration, communication, contracts, invoices, payments, mileage, expenses, and collaborating artists all stay connected to the actual work.</p>
+            </div>
+            <div class="micro">Client · contract · invoice · payment · expenses · collaborators</div>
+          </article>
+
+          <article class="product-card">
+            <span class="product-index">03 / Artists</span>
+            <div>
+              <h3>Artists</h3>
+              <p>Find, connect, and work with other artists. Assistants and collaborators can participate directly in sessions without needing to take over the business side of the primary artist’s work.</p>
+            </div>
+            <div class="micro">Connect · collaborate · assist · participate</div>
+          </article>
+
+          <article class="product-card">
+            <span class="product-index">04 / Business</span>
+            <div>
+              <h3>Business</h3>
+              <p>Income, expenses, mileage, payouts, history, reporting, libraries, and settings—organized clearly enough to be useful without turning Star Artist into complicated accounting software.</p>
+            </div>
+            <div class="micro">Income · expenses · mileage · payouts · reporting · history</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="positioning">
+        <div>
+          <p class="eyebrow">What it is not</p>
+        </div>
+        <div>
+          <h2>Not another CRM.<br>Not another calendar.<br><span>Not another invoicing app.</span></h2>
+          <p>The business side of being an artist—designed as one connected experience. The job stays at the center, and everything else finally has somewhere to belong.</p>
+        </div>
+      </section>
+
+      <section class="beta-section" id="beta">
+        <div class="beta-number">50<small>Founding Beta Spots</small></div>
+        <div class="beta-content">
+          <p class="eyebrow">Help shape what ships next</p>
+          <h2>Help shape Star Artist before everyone else gets it.</h2>
+          <p class="lead">We’re preparing the first limited testing group of freelance makeup artists and hairstylists. Selected artists will use Star Artist in real working situations and help us identify what works, what creates friction, and what should improve before a broader release.</p>
+          <div class="beta-benefits">
+            <div class="beta-benefit">Early access</div>
+            <div class="beta-benefit">Real-world testing</div>
+            <div class="beta-benefit">Direct product feedback</div>
+            <div class="beta-benefit">Help shape what ships next</div>
+          </div>
+          <form class="signup-form js-signup" data-endpoint="" novalidate>
+            <input type="email" name="email" autocomplete="email" placeholder="Enter your email" aria-label="Email address" required>
+            <button type="submit">Join the Beta&nbsp; ★</button>
+          </form>
+          <div class="form-message" role="status" aria-live="polite"></div>
+          <button class="profile-link js-profile-link" type="button">Tell us a little about your business →</button>
+        </div>
+      </section>
+
+      <section class="faq" id="faq">
+        <div class="faq-header">
+          <p class="eyebrow">A few things to know</p>
+          <h2>Before you join.</h2>
+          <p>The first cohort is intentionally small. Joining the list does not create an account or guarantee a beta spot—it gives us a way to invite the right mix of working artists when testing begins.</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Who is Star Artist being built for?</summary>
+            <div class="faq-answer">The first testing focus is freelance makeup artists and hairstylists. Star Artist is ultimately designed around artists whose work revolves around clients, sessions, collaboration, travel, and running a creative business.</div>
+          </details>
+          <details>
+            <summary>Is Star Artist available now?</summary>
+            <div class="faq-answer">Not publicly. Star Artist is currently preparing for a limited Founding Beta so we can test it in real working situations before a broader release.</div>
+          </details>
+          <details>
+            <summary>What happens when I sign up?</summary>
+            <div class="faq-answer">Your email is added to the early-access list. When beta invitations begin, selected artists will receive details about access, testing, and what participation looks like.</div>
+          </details>
+          <details>
+            <summary>Does signing up create a Star Artist account?</summary>
+            <div class="faq-answer">No. This page is only for early access and beta interest. A Star Artist account is created later if you are invited into testing.</div>
+          </details>
+          <details>
+            <summary>What will beta testers actually do?</summary>
+            <div class="faq-answer">Use Star Artist in real work, tell us where it helps, where it slows you down, what feels missing, and what should be improved before launch.</div>
+          </details>
+        </div>
+      </section>
+
+      <section class="final" id="join">
+        <div class="final-inner">
+          <div class="label">Founding Beta · 50 Spots</div>
+          <h2>Spend more time being the artist.</h2>
+          <div class="tagline">Passion first. Business handled. Focus today.</div>
+          <form class="signup-form js-signup" data-endpoint="" novalidate>
+            <input type="email" name="email" autocomplete="email" placeholder="Enter your email" aria-label="Email address" required>
+            <button type="submit">Request Access&nbsp; ★</button>
+          </form>
+          <div class="form-message" role="status" aria-live="polite"></div>
+          <button class="profile-link js-profile-link" type="button">Tell us a little about your business →</button>
+          <div class="final-note">Limited first testing cohort.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <img class="footer-brand" src="assets/star-artist-wordmark.png" alt="Star Artist">
+      <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="mailto:hello@starartist.app">Contact</a></div>
+      <div class="footer-copy">© 2026 Star Artist</div>
+    </footer>
+  </div>
+
+  <div class="modal" id="profileModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <button class="modal-close" type="button" aria-label="Close">×</button>
+      <p class="eyebrow">Optional next step</p>
+      <h2 id="profileTitle">Tell us a little about your business.</h2>
+      <p>Your email is already on the list. These answers simply help us understand who is asking for early access and what working artists need most.</p>
+      <form class="profile-form" data-endpoint="">
+        <input type="hidden" name="email" value="">
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input id="firstName" name="first_name" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="artistType">Artist type</label>
+          <select id="artistType" name="artist_type">
+            <option value="">Choose one</option>
+            <option>Makeup Artist</option>
+            <option>Hairstylist</option>
+            <option>Both</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="city">City / metro area</label>
+          <input id="city" name="city" autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label for="experience">Years working professionally</label>
+          <input id="experience" name="years_experience" inputmode="numeric">
+        </div>
+        <div class="field full">
+          <label for="workStyle">How do you usually work?</label>
+          <select id="workStyle" name="work_style">
+            <option value="">Choose one</option>
+            <option>Mostly solo</option>
+            <option>Sometimes with assistants/artists</option>
+            <option>Regularly with a team</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="painPoint">What’s the most frustrating part of running the business side of your work?</label>
+          <textarea id="painPoint" name="biggest_business_pain"></textarea>
+        </div>
+        <button class="profile-submit" type="submit">Send my answers</button>
+        <div class="profile-message" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let mostRecentEmail = '';
+    const modal = document.getElementById('profileModal');
+    const profileForm = modal.querySelector('.profile-form');
+    const hiddenProfileEmail = profileForm.querySelector('input[name="email"]');
+
+    function openProfile(email = mostRecentEmail) {
+      hiddenProfileEmail.value = email || '';
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function closeProfile() {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.querySelector('.modal-close').addEventListener('click', closeProfile);
+    modal.addEventListener('click', (event) => { if (event.target === modal) closeProfile(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeProfile(); });
+
+    document.querySelectorAll('.js-profile-link').forEach((button) => {
+      button.addEventListener('click', () => openProfile());
+    });
+
+    document.querySelectorAll('.js-signup').forEach((form) => {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const input = form.querySelector('input[type="email"]');
+        const button = form.querySelector('button[type="submit"]');
+        const message = form.nextElementSibling;
+        const profileLink = message.nextElementSibling?.classList.contains('profile-link') ? message.nextElementSibling : null;
+        const email = input.value.trim().toLowerCase();
+
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          message.textContent = 'Enter a valid email address.';
+          message.classList.add('show');
+          input.focus();
+          return;
+        }
+
+        const endpoint = form.dataset.endpoint.trim();
+        const original = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Submitting…';
+        message.classList.remove('show');
+
+        try {
+          if (endpoint) {
+            const response = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email,
+                normalized_email: email,
+                source: 'landing_page',
+                status: 'Applied',
+                cohort: 'Founding Beta'
+              })
+            });
+            if (!response.ok) throw new Error('Signup failed');
+          } else {
+            await new Promise(resolve => setTimeout(resolve, 350));
+          }
+          mostRecentEmail = email;
+          hiddenProfileEmail.value = email;
+          message.textContent = "You’re in. Your request for the Star Artist Founding Beta has been received.";
+          message.classList.add('show');
+          if (profileLink) profileLink.classList.add('show');
+          input.value = '';
+          button.textContent = 'Requested ✓';
+        } catch (error) {
+          message.textContent = 'Something went wrong. Please try again.';
+          message.classList.add('show');
+          button.textContent = original;
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+
+    profileForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const button = profileForm.querySelector('.profile-submit');
+      const message = profileForm.querySelector('.profile-message');
+      const endpoint = profileForm.dataset.endpoint.trim();
+      const data = Object.fromEntries(new FormData(profileForm).entries());
+      const original = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      message.classList.remove('show');
+
+      try {
+        if (endpoint) {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data, type: 'beta_profile' })
+          });
+          if (!response.ok) throw new Error('Profile failed');
+        } else {
+          await new Promise(resolve => setTimeout(resolve, 350));
+        }
+        message.textContent = 'Thank you. Your answers were saved.';
+        message.classList.add('show');
+        button.textContent = 'Saved ✓';
+        setTimeout(closeProfile, 900);
+      } catch (error) {
+        message.textContent = 'Something went wrong. Please try again.';
+        message.classList.add('show');
+        button.textContent = original;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
